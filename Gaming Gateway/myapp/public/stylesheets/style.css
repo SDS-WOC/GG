@@ -1,0 +1,260 @@
+/* GENERAL */
+body{
+ 	margin:0;
+ 	font-family: Arial, Helvetica, sans-serif;
+ 	background : url('../images/Background.jpg');
+ 	background-size: cover;
+ 	color: #fff;
+ 	font-size: 1.1em;
+ 	line-height: 1.5;
+ 	text-align : center;
+ }
+ h1,h2,h3{
+ 	margin:0;
+ 	padding: 1em 0;
+ }
+
+ p{
+ 	margin: 0;
+ 	padding: 1em 0;
+ }
+  .btn{
+ 	display: inline-block;
+ 	background: #333;
+ 	color: #fff;
+ 	text-decoration: none;
+ 	padding: 1em 2em;
+ 	border: 1px solid #666;
+    margin: .5em 0;
+    opacity: 0.5;
+ }
+
+.btn:hover {
+background: #eaeaea;
+color: #333;
+opacity:0.8;
+}
+/* NAV BAR*/
+.nav {
+  text-align: right;
+  height: 60px;
+  line-height:60px;
+  background:black;
+  margin-bottom: 5px;
+  }
+
+.menu {
+	margin: 0 30 0 0;
+
+}
+
+.menu a{
+	clear:right;
+ 	text-decoration: none;
+	background-color: black;
+	color: gray;
+	margin:0 25px;
+	line-height: 70px;
+    padding:25px 15px 15px 15px;
+}
+
+.menu a:hover{
+	color: black;
+	background-color: white;
+}
+ label{
+ 	margin-right: 40px;
+ 	font-size:30px;
+ 	line-height:60px;
+ 	display: none;
+ 	width:30px;
+ 	float: right;
+
+ }
+
+ #click {
+ 	display: none;
+ }
+/* GRID */
+.grid0{
+	color: #fff;
+	text-align: center;
+	background: url('../images/Showcase.png') no-repeat 0;
+	background-size: cover;
+	background-width: 100%;
+	background-position: center;
+
+}
+ /*.grid0:before{
+	background: url('GG.jpg') no-repeat 0;
+	background-size: cover;
+	background-position: center center;
+	background-width: 100%;
+	background-opacity:0.5;
+
+
+	DOESNT WORK FOR SOME REASON
+}*/
+ .grid0 h1{
+padding-top: 100px;
+padding-bottom: 0px;
+ }
+
+  .grid1 {
+  	color: #fff;
+  	padding-bottom:2em;
+  	padding: 0 1.5em;
+  	height:250px;
+  	background: url('../images/DOTA.jpg') no-repeat 0;
+	background-size: cover;
+	background-width: 100%;
+	background-position: center;
+	 box-shadow: 0 5px 10px 0 rgba(0,255,0,0.4);
+    transition: 0.5s;
+    cursor: pointer;
+  }
+  .grid1:hover{
+ box-shadow: 0 10px 20px 0 rgba(0,255,0,0.5);
+  }
+  .grid2 {
+  	color: #fff;
+  	padding-bottom:2em;
+  	padding: 0 1.5em;
+  	height:250px;
+  	background: url('../images/AOE.jpg') no-repeat 0;
+	background-size: cover;
+	background-width: 100%;
+	background-position: center;
+	 box-shadow: 0 5px 10px 0 rgba(0,255,0,0.4);
+    transition: 0.5s;
+    cursor: pointer;
+  }
+  .grid2:hover{
+ box-shadow: 0 10px 20px 0 rgba(0,255,0,0.5);
+  }
+  .grid3 {
+  	color: #fff;
+  	padding-bottom:2em;
+  	padding: 0 1.5em;
+  	height:250px;
+  	background: url('../images/FIFA.jpeg') no-repeat 0;
+	background-size: cover;
+	background-width: 100%;
+	background-position: center;
+	 box-shadow: 0 5px 10px 0 rgba(0,255,0,0.4);
+    transition: 0.5s;
+    cursor: pointer;
+  }
+  .grid3:hover{
+ box-shadow: 0 10px 20px 0 rgba(0,255,0,0.5);
+  }
+  .grid4 {
+  	color: #fff;
+  	padding-bottom:2em;
+  	padding: 0 1.5em;
+  	height:250px;
+  	background: url('../images/CS.jpg') no-repeat 0;
+	background-size: cover;
+	background-width: 100%;
+	background-position: center;
+	 box-shadow: 0 5px 10px 0 rgba(0,255,0,0.4);
+    transition: 0.5s;
+    cursor: pointer;
+  }
+  .grid4:hover{
+ box-shadow: 0 10px 20px 0 rgba(0,255,0,0.5);
+  }
+  .grid5 {
+  	color: #fff;
+  	padding-bottom:2em;
+  	padding: 0 1.5em;
+  	height:250px;
+  	background: url('../images/LOL.jpg') no-repeat 0;
+	background-size: cover;
+	background-width: 100%;
+	background-position: center;
+	 box-shadow: 0 5px 10px 0 rgba(0,255,0,0.4);
+    transition: 0.5s;
+    cursor: pointer;
+  }
+  .grid5:hover{
+ box-shadow: 0 10px 20px 0 rgba(0,255,0,0.5);
+  }
+#bs .box{
+	padding: 2em;
+	color: #fff;
+background: #2690d4;
+}
+/* Footer */
+#ooter {
+	padding: 2em;
+	background:#000;
+	text-align: center;
+}
+/* responsive */
+	@media (min-width:700px){
+		.wrapper {
+			display: grid;
+			grid-template-columns:1fr 1fr 1fr;
+			grid-gap:1em;
+
+		}
+
+		.grid0{
+			padding-top:50px;
+			grid-column:1/3 ;
+			grid-row: 1/3;
+		}
+	    .grird1{
+	    	grid-column: 3;
+	    	grid-row: 1;
+	    }
+
+
+		#bs{
+			margin-top: 1em;
+			text-align: center;
+		}
+	}
+
+
+ @media(max-width: 700px){
+
+
+ 	label {
+ 		display:block;
+ 		cursor: pointer;
+ 	}
+
+ 	.menu{
+ 		text-align : center;
+ 		width:100%;
+ 		display: none;
+ 	}
+ 	.menu a{
+ 		display:block;
+ 		border-bottom: 1px solid white;
+ 		margin: 0;
+   }
+   #click:checked + .menu{
+   	display:block;
+   }
+   .grid0{
+   	margin-bottom: 0.5em;
+   }
+   .grid1{
+   	margin-bottom: 0.5em;
+   }
+   .grid2{
+   	margin-bottom: 0.5em;
+   }
+   .grid3{
+   	margin-bottom: 0.5em;
+   }
+   .grid4{
+   	margin-bottom: 0.5em;
+   }
+   .grid5{
+   	margin-bottom: 0.5em;
+   }
+ }
