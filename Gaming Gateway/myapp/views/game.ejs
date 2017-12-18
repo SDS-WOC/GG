@@ -1,49 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="style2.css">
-	<title>Gaming Gateway</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style2.css">
+    <title>Gaming Gateway</title>
 </head>
-	<div class="nav">
 
-		<label for="click">&#9776;</label>
-		<input type="checkbox" id="click"/>
-        <div class="menu">
-        	<a href="#">Menu 1</a>
-        	<a href="#">Menu 2</a>
-        	<a href="#">Menu 3</a>
-        	<a href="#">Menu 4</a>
-	</div>
-</div>
-	<body><main id="main">
+<header class="header">
+<a href="" class="logo">Gaming Gateway</a>
+<input class="menu-btn" type="checkbox" id="menu-btn" />
+<label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+<ul class="menu">
+  <li><a href="#work">Home</a></li>
+  <li><a href="#about">About</a></li>
+  <li><a href="#careers">contact</a></li>
+  <li><a href="#contact">Login</a></li>
+</ul>
+</header>
+<body>
+<main id="main">
 <div class="wrapper">
-<div class="showcase">
-	<h1> <%= Game %> </h1>
-	<p>Nunc posuere nec elit et suscipit. Sed augue enim, bibendum facilisis sagittis nec, aliquam sed dui. Sed ac porttitor mi. Suspendisse blandit arcu sit amet porta efficitur.
+<div class="showcase" id="<%= Game %>">
+    <h1> <%= Game %> </h1>
+    <p>Nunc posuere nec elit et suscipit. Sed augue enim, bibendum facilisis sagittis nec, aliquam sed dui. Sed ac porttitor mi. Suspendisse blandit arcu sit amet porta efficitur.
 </p>
 </div>
-	<!-- chatbox -->
-	<div class="list1">
-			<h2>list1</h2>
+    <!-- chatbox -->
+    <div class="list1">
+            <h2>list1</h2>
 
-		</div>
+        </div>
 
 <!-- list 1-->
 <div class="list2">
-			<h2 >list2</h2>
+            <h2 >list2</h2>
 
-		</div>
+        </div>
 <!-- list 2 -->
 <div class="chatbox">
-			<h2 >chatbox</h2>
-		</div>
-		</div>
+            <h2 >chatbox</h2>
+        </div>
+        </div>
 </main>
 
 <footer id="ooter">
-	<div>Gaming Gateway</div>
+    <div>Gaming Gateway</div>
 </footer>
 </body>
 </html>

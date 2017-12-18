@@ -1,29 +1,42 @@
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
-var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var index = require('./routes/index');
-var dota = require('./routes/dota');
-
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/dota', dota);
+app.get('/',function(req, res, next) {
+  res.render('index');
+});
+
+app.get('/dota',function(req, res, next) {
+  res.render('game', { Game: 'Dota' });
+});
+
+app.get('/cs',function(req, res, next) {
+  res.render('game', { Game: 'CounterStrike' });
+});
+
+app.get('/aoe',function(req, res, next) {
+  res.render('game', { Game: 'AOE' });
+});
+
+app.get('/fifa',function(req, res, next) {
+  res.render('game', { Game: 'FIFA' });
+});
+
+app.get('/league',function(req, res, next) {
+  res.render('game', { Game: 'League' });
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -42,4 +55,9 @@ app.use(function(err, req, res, next) {
   //res.render('error');
 });
 
+
 module.exports = app;
+port = process.env.PORT || 5000;
+var server = app.listen(port, function() {
+  console.log('Magic is happening on port ' + port);
+});

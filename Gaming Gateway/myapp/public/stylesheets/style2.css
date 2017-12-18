@@ -19,46 +19,122 @@ body{
  	padding: 1em 0;
  }
 /* NAV BAR*/
-.nav {
-  text-align: right;
-  height: 60px;
-  line-height:60px;
-  background:black;
-  margin-bottom: 5px;
-  }
-
-.menu {
-	margin: 0 30 0 0;
-
+a {
+  color: #000;
 }
 
-.menu a{
-	clear:right;
- 	text-decoration: none;
-	background-color: black;
-	color: gray;
-	margin:0 25px;
-	line-height: 70px;
-    padding:25px 15px 15px 15px;
+/* header */
+
+.header {
+  background-color: #fff;
+  box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
+  position: fixed;
+  width: 100%;
+  z-index: 3;
 }
 
-.menu a:hover{
-	color: black;
-	background-color: white;
+.header ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  background-color: #fff;
 }
- label{
- 	margin-right: 40px;
- 	font-size:30px;
- 	line-height:60px;
- 	display: none;
- 	width:30px;
- 	float: right;
 
- }
+.header li a {
+  display: block;
+  padding: 20px 20px;
+  border-right: 1px solid #f4f4f4;
+  text-decoration: none;
+}
 
- #click {
- 	display: none;
- }
+.header li a:hover,
+.header .menu-btn:hover {
+  background-color: #f4f4f4;
+}
+
+.header .logo {
+  display: block;
+  float: left;
+  font-size: 2em;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+/* menu */
+
+.header .menu {
+  clear: both;
+  max-height: 0;
+  transition: max-height .2s ease-out;
+}
+
+/* menu icon */
+
+.header .menu-icon {
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  padding: 28px 20px;
+  position: relative;
+  user-select: none;
+}
+
+.header .menu-icon .navicon {
+  background: #333;
+  display: block;
+  height: 2px;
+  position: relative;
+  transition: background .2s ease-out;
+  width: 18px;
+}
+
+.header .menu-icon .navicon:before,
+.header .menu-icon .navicon:after {
+  background: #333;
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  transition: all .2s ease-out;
+  width: 100%;
+}
+
+.header .menu-icon .navicon:before {
+  top: 5px;
+}
+
+.header .menu-icon .navicon:after {
+  top: -5px;
+}
+
+/* menu btn */
+
+.header .menu-btn {
+  display: none;
+}
+
+.header .menu-btn:checked ~ .menu {
+  max-height: 240px;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon {
+  background: transparent;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:before {
+  transform: rotate(-45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:after {
+  transform: rotate(45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+  top: 0;
+}
+
 /* GRID */
 .showcase{
 	color: black;
@@ -70,6 +146,42 @@ body{
 	background-position: center;*/
 
 }
+#Dota{
+  background: url('../images/DOTA.jpg') no-repeat 0;
+	background-size: cover;
+	background-width: 100%;
+	background-position: center;
+}
+
+#CounterStrike{
+  background: url('../images/CS.jpg') no-repeat 0;
+	background-size: cover;
+	background-width: 100%;
+	background-position: center;
+}
+
+#AOE{
+  background: url('../images/AOE.jpg') no-repeat 0;
+	background-size: cover;
+	background-width: 100%;
+	background-position: center;
+}
+
+#FIFA{
+  background: url('../images/FIFA.jpeg') no-repeat 0;
+	background-size: cover;
+	background-width: 100%;
+	background-position: center;
+}
+
+#League{
+  background: url('../images/LOL.jpg') no-repeat 0;
+	background-size: cover;
+	background-width: 100%;
+	background-position: center;
+}
+
+
  /*.grid0:before{
 	background: url('GG.jpg') no-repeat 0;
 	background-size: cover;
@@ -151,38 +263,19 @@ padding-bottom: 0px;
 
 
 
- @media(max-width: 700px){
-
-
- 	label {
- 		display:block;
- 		cursor: pointer;
- 	}
-
- 	.menu{
- 		text-align : center;
- 		width:100%;
- 		display: none;
- 	}
- 	.menu a{
- 		display:block;
- 		border-bottom: 1px solid white;
- 		margin: 0;
+    @media (min-width: 700px) {
+      .header li {
+        float: left;
+      }
+      .header li a {
+        padding: 20px 30px;
+      }
+      .header .menu {
+        clear: none;
+        float: right;
+        max-height: none;
+      }
+      .header .menu-icon {
+        display: none;
+      }
    }
-   #click:checked + .menu{
-   	display:block;
-   }
-   .showcase{
-   	margin-bottom: 0.5em;
-   }
-   .chatbox{
-   	margin-bottom: 0.5em;
-   }
-   .list1{
-   	margin-bottom: 0.5em;
-   }
-   .list2{
-   	margin-bottom: 0.5em;
-   }
-
- }
