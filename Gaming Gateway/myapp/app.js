@@ -14,8 +14,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.get('/',function(req, res, next) {
   res.render('index');
+});
+
+app.get('/about',function(req, res, next) {
+  res.render('about');
+});
+
+app.get('/signup',function(req, res, next) {
+  res.render('signup');
+});
+
+app.get('/login',function(req, res, next) {
+  res.render('login');
 });
 
 app.get('/dota',function(req, res, next) {
