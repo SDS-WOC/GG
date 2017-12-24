@@ -4,15 +4,17 @@
     <title><Gaming Gateway></title>
     <link rel='stylesheet' href='/stylesheets/login.css'>
   </head>
+<body>
 <div class="login-page">
   <div class="form">
-    <form class="register-form">
-      <input type="text" placeholder="name"/>
-      <input type="password" placeholder="password"/>
-      <input type="text" placeholder="email address"/>
-      <button>create</button>
-      <p class="message">Already registered? <a href="/login">Sign In</a></p>
+    <form class="register-form" action="/myaction" method="post" >
+      <input type="text" id="username" name="username" placeholder="username" required=""/>
+      <input type="password" id="password" name="password" placeholder="password" required=""/>
+      <input type="email" id="email" name="email" placeholder="email address" required=""/>
+      <button type="submit">create</button>
     </form>
+    <p class="message">Already registered? <a href="/login">Sign In</a></p>
   </div>
 </div>
+</body>
 </html>

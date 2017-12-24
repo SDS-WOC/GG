@@ -3,17 +3,42 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mysql = require('mysql');
+var connection  = require('express-myconnection');
+var session = require('express-session');
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret: "Your secret key"}));
 
+app.use(
+    connection(mysql,{
+
+        host: 'localhost',
+        user: 'root',
+        password : 'lel',
+        port : 3306, //port mysql
+        database:'users'
+},'pool')
+);
+
+/*connection.connect(function(err){
+if(!err) {
+    console.log("Database is connected ... nn");
+} else {
+    console.log("Error connecting database ... nn");
+}
+});*/
+
+//prelogin
 
 app.get('/',function(req, res, next) {
   res.render('index');
@@ -32,30 +57,169 @@ app.get('/login',function(req, res, next) {
 });
 
 app.get('/dota',function(req, res, next) {
-  res.render('game', { Game: 'Dota' });
+req.getConnection(function(err,connection){
+  var query = connection.query('SELECT * FROM users',function(err,rows){
+          if(err)
+            console.log("Error Selecting : %s ",err );
+  res.render('game', { Game: 'Dota' , data:rows  });
 });
-
+});
+});
 app.get('/cs',function(req, res, next) {
-  res.render('game', { Game: 'CounterStrike' });
+  req.getConnection(function(err,connection){
+    var query = connection.query('SELECT * FROM users',function(err,rows){
+            if(err)
+              console.log("Error Selecting : %s ",err );
+  res.render('game', { Game: 'CounterStrike', data:rows   });
+});
+});
 });
 
 app.get('/aoe',function(req, res, next) {
-  res.render('game', { Game: 'AOE' });
+  req.getConnection(function(err,connection){
+    var query = connection.query('SELECT * FROM users',function(err,rows){
+            if(err)
+              console.log("Error Selecting : %s ",err );
+  res.render('game', { Game: 'AOE', data:rows   });
+});
+});
 });
 
 app.get('/fifa',function(req, res, next) {
-  res.render('game', { Game: 'FIFA' });
+  req.getConnection(function(err,connection){
+    var query = connection.query('SELECT * FROM users',function(err,rows){
+            if(err)
+              console.log("Error Selecting : %s ",err );
+  res.render('game', { Game: 'FIFA' , data:rows   });
+});
+});
 });
 
 app.get('/league',function(req, res, next) {
-  res.render('game', { Game: 'League' });
+  req.getConnection(function(err,connection){
+    var query = connection.query('SELECT * FROM users',function(err,rows){
+            if(err)
+              console.log("Error Selecting : %s ",err );
+  res.render('game', { Game: 'League' , data:rows   });
 });
+});
+});
+
+//Post login
+app.get('/1',function(req, res, next) {
+  res.render('index1' , {Name:req.session.user.id});
+});
+
+app.get('/dota1',function(req, res, next) {
+req.getConnection(function(err,connection){
+  var query = connection.query('SELECT * FROM users',function(err,rows){
+          if(err)
+            console.log("Error Selecting : %s ",err );
+  res.render('game1', { Game: 'Dota' , data:rows , Name: req.session.user.id });
+});
+});
+});
+app.get('/cs1',function(req, res, next) {
+  req.getConnection(function(err,connection){
+    var query = connection.query('SELECT * FROM users',function(err,rows){
+            if(err)
+              console.log("Error Selecting : %s ",err );
+  res.render('game1', { Game: 'CounterStrike', data:rows , Name: req.session.user.id  });
+});
+});
+});
+
+app.get('/aoe1',function(req, res, next) {
+  req.getConnection(function(err,connection){
+    var query = connection.query('SELECT * FROM users',function(err,rows){
+            if(err)
+              console.log("Error Selecting : %s ",err );
+  res.render('game1', { Game: 'AOE', data:rows , Name: req.session.user.id  });
+});
+});
+});
+
+app.get('/fifa1',function(req, res, next) {
+  req.getConnection(function(err,connection){
+    var query = connection.query('SELECT * FROM users',function(err,rows){
+            if(err)
+              console.log("Error Selecting : %s ",err );
+  res.render('game1', { Game: 'FIFA' , data:rows , Name: req.session.user.id  });
+});
+});
+});
+
+app.get('/league1',function(req, res, next) {
+  req.getConnection(function(err,connection){
+    var query = connection.query('SELECT * FROM users',function(err,rows){
+            if(err)
+              console.log("Error Selecting : %s ",err );
+  res.render('game1', { Game: 'League' , data:rows , Name: req.session.user.id  });
+});
+});
+});
+
+app.get('/logout', function(req, res){
+   req.session.destroy(function(){
+      console.log("user logged out.")
+   });
+   res.redirect('/login');
+});
+
+
+app.post('/myaction', function(req, res) {
+  req.getConnection(function(err,connection){
+	console.log('req.body');
+	console.log(req.body);
+	var record = {username: req.body.username, email: req.body.email, password: req.body.password};
+
+	//connection.connect();
+  connection.query('INSERT INTO users SET username=? , email = ?, password = ?' ,[record['username'],record['email'], record['password']], function(err,res){
+          if(err) throw err;
+        console.log('Last record insert id:', res.insertId);
+	});
+});
+	res.redirect('/login');
+	//connection.end();
+
+res.end();
+});
+
+app.post('/verifyuser', function(req,res){
+req.getConnection(function(err,connection){
+  console.log('checking user in database');
+	console.log(req.body.password);
+	var selectString = 'SELECT COUNT(username) FROM users WHERE username="'+req.body.username+'" AND password="'+req.body.password+'" ';
+
+	connection.query(selectString, function(err, results) {
+
+        console.log(results);
+        var string=JSON.stringify(results);
+        console.log(string);
+        //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
+        if (string === '[{"COUNT(username)":1}]') {
+      req.session.user = { id : req.body.username }
+      res.redirect('/1');
+
+	        }
+        if (string === '[{"COUNT(username)":0}]')  {
+        	res.redirect('/login');
+
+        }
+});
+});
+});
+
 // catch 404 and forward to error handler
+
+
+
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {
