@@ -3,22 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="stylesheets/style2.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style2.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>Gaming Gateway</title>
 </head>
 
-<header class="header">
-<a href="" class="logo">Gaming Gateway</a>
-<input class="menu-btn" type="checkbox" id="menu-btn" />
-<label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-<ul class="menu">
-  <li><a href="/">Home</a></li>
-  <li><a href="/about">About</a></li>
-  <li><a href="/#bs">Contact</a></li>
-  <li><a href="/login">Login</a></li>
-</ul>
-</header>
 <body>
+  <% include template/header.ejs %>
 <main id="main">
 <div class="wrapper">
 <div class="showcase" id="<%= Game %>">
@@ -28,7 +21,21 @@
 </div>
     <!-- chatbox -->
     <div class="list1">
-            <h2>list1</h2>
+      <table class="table">
+<tr>
+</tr>
+<% if(data.length){
+for(var i = 0;i < data.length;i++) { %>
+<tr>
+<td><%=data[i].message%></td>
+</tr>
+<% }
+}else{ %>
+<tr>
+<td colspan="3">No user</td>
+</tr>
+<% } %>
+</table>
 
         </div>
 
