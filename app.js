@@ -7,6 +7,13 @@ var mysql = require('mysql');
 var connection  = require('express-myconnection');
 var session = require('express-session');
 var app = express();
+var server = require('http').createServer(app);
+//var io = require('socket.io').listen(server);
+var port = process.env.PORT || 5000;
+
+server.listen(port, function () {
+  console.log('Magic is happening at port %d', port);
+});
 
 
 // view engine setup
@@ -35,7 +42,18 @@ app.get('/',function(req, res, next) {
   res.render('index',{username:req.session.user});
 });
 
-app.get('/:page',function(req,res){
+/*io.sockets.on('connect', function(socket){
+  connections.push(socket);
+  console.log('Connected: %s sockets connected', connections.length);
+
+  // Disconnect
+sockets.on('disconnect',function(data){
+ connections.splice(connections.indexOf(socket), 1);
+  console.log('Disconnected: %s sockets connected' , connections.length);
+});
+});*/
+
+app.get('/home/:page',function(req,res){
    page = req.params.page;
    res.render(page);
 });
@@ -46,17 +64,9 @@ app.get('/game/:name',function(req, res, next) {
     var query = connection.query('SELECT * FROM users',function(err,rows){
             if(err)
               console.log("Error Selecting : %s ",err );
-  res.render('game', { Game:  name , data:rows ,username:req.session.user });
+  res.render('game', { Game:  name , data:rows ,username:req.session.user});
 });
  });
-});
-
-
-app.get('/logout', function(req, res){
-   req.session.destroy(function(){
-      console.log("user logged out.")
-   });
-   res.redirect('/login');
 });
 
 
@@ -72,7 +82,7 @@ app.post('/myaction', function(req, res) {
         console.log('Last record insert id:', res.insertId);
 	});
 });
-	res.redirect('/login');
+	res.redirect('/home/login');
 	//connection.end();
 
 res.end();
@@ -91,21 +101,23 @@ req.getConnection(function(err,connection){
         console.log(string);
         //this is a walkaround of checking if the email pass combination is 1 or not it will fail if wrong pass is given
         if (string === '[{"COUNT(username)":1}]') {
-      req.session.user = { id : req.body.username }
+      req.session.user = { hi : req.body.username };
       res.redirect('/');
 
 	        }
         if (string === '[{"COUNT(username)":0}]')  {
-        	res.redirect('/login');
+        	res.redirect('/home/login');
 
         }
 });
 });
 });
+app.get('/logout', function(req, res){
+   req.session.destroy();
+  res.redirect('/');
+});
 
 // catch 404 and forward to error handler
-
-
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -126,8 +138,5 @@ app.use(function(err, req, res, next) {
 });
 
 
+
 module.exports = app;
-port = process.env.PORT || 5000;
-var server = app.listen(port, function() {
-  console.log('Magic is happening on port ' + port);
-});

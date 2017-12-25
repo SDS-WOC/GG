@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <style>
+
+  </style>
     <title>Gaming Gateway</title>
 </head>
 
@@ -27,7 +31,7 @@
 <% if(data.length){
 for(var i = 0;i < data.length;i++) { %>
 <tr>
-<td><%=data[i].message%></td>
+<td><%=data[i].username%></td>
 </tr>
 <% }
 }else{ %>
@@ -37,22 +41,35 @@ for(var i = 0;i < data.length;i++) { %>
 <% } %>
 </table>
 
-        </div>
+    </div>
 
 <!-- list 1-->
 <div class="list2">
-            <h2 >list2</h2>
-
-        </div>
+          <h3>Online Users</h3>
+          <ul class="list-group" id="users"></ul>
+</div>
 <!-- list 2 -->
 <div class="chatbox">
-            <h2 >chatbox</h2>
-        </div>
+                <div class="chat" id="chat"></div>
+                <form id="messageForm">
+                  <div class="form-group">
+                    <label> Enter Message </label>
+                    <textarea class="form-control" id="message"></textarea>
+                    <br />
+                    <input type="submit" class="btn btn-primary" value="Send Message" />
+                  </div>
+                </form>
+            </div>
         </div>
 </main>
 
 <footer id="ooter">
     <div>Home Made Web Studios ©2017</div>
 </footer>
+<script>
+  $(function(){
+    var socket = io.connect();
+  });
+</script>
 </body>
 </html>
