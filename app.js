@@ -47,7 +47,6 @@ io.sockets.on('connection', function(socket) {
     socket.join(room);
   // Disconnect
 socket.on('disconnect',function(data){
- connections.splice(connections.indexOf(socket), 1);
  socket.leave(room);
 });
   // Mesgswgsa
