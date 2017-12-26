@@ -8,7 +8,7 @@ var connection  = require('express-myconnection');
 var session = require('express-session');
 var app = express();
 var server = require('http').createServer(app);
-//var io = require('socket.io').listen(server);
+var io = require('socket.io').listen(server);
 var port = process.env.PORT || 5000;
 
 server.listen(port, function () {
@@ -42,16 +42,22 @@ app.get('/',function(req, res, next) {
   res.render('index',{username:req.session.user});
 });
 
-/*io.sockets.on('connect', function(socket){
-  connections.push(socket);
-  console.log('Connected: %s sockets connected', connections.length);
-
+io.sockets.on('connection', function(socket) {
+  socket.on('create', function(room) {
+    socket.join(room);
   // Disconnect
-sockets.on('disconnect',function(data){
+socket.on('disconnect',function(data){
  connections.splice(connections.indexOf(socket), 1);
-  console.log('Disconnected: %s sockets connected' , connections.length);
+ socket.leave(room);
 });
-});*/
+  // Mesgswgsa
+  socket.on('send message', function(data){
+  console.log(data);
+    io.sockets.in(room).emit('new message',{msg: data});
+  });
+
+  });
+});
 
 app.get('/home/:page',function(req,res){
    page = req.params.page;
