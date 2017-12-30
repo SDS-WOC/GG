@@ -61,8 +61,6 @@ io.sockets.on('connection' , function(socket) {
     users=[];
     socket.username =   socket.handshake.session.user.hi;
   var clients = io.sockets.adapter.rooms[room].sockets;
-  var numClients = (typeof clients !== 'undefined') ? Object.keys(clients).length : 0;
-
   for (var clientId in clients ) {
      var clientSocket = io.sockets.connected[clientId].username;
      users.push(clientSocket);
