@@ -58,16 +58,18 @@ if(req.session.user){
 io.sockets.on('connection' , function(socket) {
   socket.on('create' , function(room) {
     socket.join(room);
+    users=[];
     socket.username =   socket.handshake.session.user.hi;
   /*  room.usernames.push(socket.username);*/
   var clients = io.sockets.adapter.rooms[room].sockets;
   var numClients = (typeof clients !== 'undefined') ? Object.keys(clients).length : 0;
 
   for (var clientId in clients ) {
-       var clientSocket = io.sockets.connected[clientId].username;
-updateUsernames();
+     var clientSocket = io.sockets.connected[clientId].username;
+     users.push(clientSocket);
 console.log(clientSocket);
      }
+     updateUsernames();
 
 
   /*socket.on('login' , function(user) {
@@ -91,7 +93,7 @@ updateUsernames();
         }*/
 });
       function updateUsernames(){
-          io.sockets.in(room).emit('get users', clientSocket );
+          io.sockets.in(room).emit('get users', users );
         }
 
   // Mesgswgsa

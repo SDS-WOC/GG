@@ -79,8 +79,11 @@ for(var i = 0;i < data.length;i++) { %>
       $message.val('');
     });
 socket.on('get users', function(data){
-
-    $users.append('<li class="list-group-item">'+data+'</li>');
+var html='';
+for(i=0;i<data.length;i++){
+html += '<li class="list-group-item">'+data[i]+'</li>' ;
+}
+$users.html(html);
   });
 
     socket.on('new message', function(data){
