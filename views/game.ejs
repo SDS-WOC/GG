@@ -19,12 +19,10 @@
 <main id="main">
 <div class="wrapper">
 <div class="showcase" id="<%= Game %>">
-    <h1> <%= Game %> </h1>
-    <p>Nunc posuere nec elit et suscipit. Sed augue enim, bibendum facilisis sagittis nec, aliquam sed dui. Sed ac porttitor mi. Suspendisse blandit arcu sit amet porta efficitur.
-</p>
 </div>
     <!-- chatbox -->
     <div class="list1">
+<div class="well">
       <table class="table">
 <tr>
 </tr>
@@ -40,7 +38,7 @@ for(var i = 0;i < data.length;i++) { %>
 </tr>
 <% } %>
 </table>
-
+</div>
     </div>
 
 <!-- list 1-->
@@ -73,15 +71,21 @@ for(var i = 0;i < data.length;i++) { %>
     var $messageForm = $('#messageForm');
     var $message = $('#message');
     var $chat = $('#chat');
+    var $users = $('#users');
     socket.emit('create', '<%= Game %>');
     $messageForm.submit(function(e){
       e.preventDefault();
       socket.emit('send message', $message.val());
       $message.val('');
     });
+socket.on('get users', function(data){
+
+    $users.append('<li class="list-group-item">'+data+'</li>');
+  });
+
     socket.on('new message', function(data){
-      $chat.append('<div class="well">'+data.msg+'</div>');
-    })
+      $chat.append('<div class="well"><strong>'+data.user+'</strong>: '+data.msg+'</div>');
+    });
   });
 </script>
 </body>

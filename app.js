@@ -9,7 +9,14 @@ var session = require('express-session');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
+var sharedsession = require("express-socket.io-session");
 var port = process.env.PORT || 5000;
+var session = require("express-session")({
+    secret: "my-secret",
+    resave: true,
+    saveUninitialized: true
+});
+games = ["Dota","AOE","League","CounterStrike","FIFA"];
 
 server.listen(port, function () {
   console.log('Magic is happening at port %d', port);
@@ -24,7 +31,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret: "Your secret key"}));
+app.use(session);
+io.use(sharedsession(session, {
+    autoSave:true
+}));
+
 
 app.use(
     connection(mysql,{
@@ -39,40 +50,94 @@ app.use(
 
 
 app.get('/',function(req, res, next) {
-  res.render('index',{username:req.session.user});
+if(req.session.user){
+  res.render('index',{username:req.session.user,lel:req.session.user.hi});
+}else{res.render('index',{username:req.session.user});}
 });
 
-io.sockets.on('connection', function(socket) {
-  socket.on('create', function(room) {
+io.sockets.on('connection' , function(socket) {
+  socket.on('create' , function(room) {
     socket.join(room);
+    socket.username =   socket.handshake.session.user.hi;
+  /*  room.usernames.push(socket.username);*/
+  var clients = io.sockets.adapter.rooms[room].sockets;
+  var numClients = (typeof clients !== 'undefined') ? Object.keys(clients).length : 0;
+
+  for (var clientId in clients ) {
+       var clientSocket = io.sockets.connected[clientId].username;
+updateUsernames();
+console.log(clientSocket);
+     }
+
+
+  /*socket.on('login' , function(user) {
+            socket.handshake.session.user = user;
+            socket.handshake.session.save();*
+
+
+
+ var clients = io.sockets.adapter.rooms[room].sockets;
+}
+io.sockets.in(room).emit('get users', clients);*/
+
   // Disconnect
-socket.on('disconnect',function(data){
+socket.on('disconnect', function(data){
  socket.leave(room);
+/*room.usernames.splice(room.usernames.indexOf(socket.username) , 1);*/
+updateUsernames();
+      /*  if (socket.handshake.session.user) {
+            delete socket.handshake.session.user;
+            socket.handshake.session.save();
+        }*/
 });
+      function updateUsernames(){
+          io.sockets.in(room).emit('get users', clientSocket );
+        }
+
   // Mesgswgsa
   socket.on('send message', function(data){
   console.log(data);
-    io.sockets.in(room).emit('new message',{msg: data});
-  });
-
+    io.sockets.in(room).emit('new message',{msg: data , user:socket.username} );
   });
 });
+  });
 
 app.get('/home/:page',function(req,res){
    page = req.params.page;
-   res.render(page);
-});
+   if(req.session.user){
+     res.redirect('/');
+      } else {
+        res.render(page);
+      }
+  });
+
+
 
 app.get('/game/:name',function(req, res, next) {
   var name = req.params.name;
   req.getConnection(function(err,connection){
-    var query = connection.query('SELECT * FROM users',function(err,rows){
+    var query = connection.query('SELECT * FROM users WHERE '+[name]+'=1',function(err,rows){
             if(err)
               console.log("Error Selecting : %s ",err );
-  res.render('game', { Game:  name , data:rows ,username:req.session.user});
+for(i=0;i<5;i++){
+  if(name!=games[i]){
+    if(i=4)
+    res.redirect('/');
+  }else{
+if(req.session.user){
+  res.render('game', { Game:  name , data:rows ,username:req.session.user,lel:req.session.user.hi});
+  break;
+}else{
+res.redirect('/home/login');
+break;
+}
+}
+}
 });
- });
 });
+});
+
+
 
 
 app.post('/myaction', function(req, res) {

@@ -1,4 +1,44 @@
 /* GENERAL */
+.imagebox {
+  background: black;
+height:250px;
+  padding: 0px;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.imagebox img {
+  opacity: 1;
+  transition: 0.5s;
+   size: cover;
+  height : 250px;
+  width : 100%;
+}
+
+.imagebox .imagebox-desc {
+  background-color: rgba(0, 0, 0, 0.6);
+  bottom: 0px;
+  color: white;
+  font-size: 1.2em;
+  left: 0px;
+  padding: 10px 15px;
+  position: absolute;
+  transition: 0.5s padding;
+  text-align: center;
+  width: 100%;
+}
+
+.imagebox:hover img {
+transform: scale(1.5);
+  opacity: 0.7;
+}
+
+.imagebox:hover .imagebox-desc {
+  padding-bottom: 10%;
+}
+
 body{
  	margin:0;
  	font-family: Arial, Helvetica, sans-serif;
@@ -7,7 +47,6 @@ body{
  	color: #fff;
  	font-size: 1.1em;
  	line-height: 1.5;
- 	text-align : center;
  }
  h1,h2,h3{
  	margin:0;
@@ -18,168 +57,36 @@ body{
  	margin: 0;
  	padding: 1em 0;
  }
-  .btn{
- 	display: inline-block;
- 	background: #333;
- 	color: #fff;
- 	text-decoration: none;
- 	padding: 1em 2em;
- 	border: 1px solid #666;
-    margin: .5em 0;
-    opacity: 0.5;
- }
 
-.btn:hover {
-color: black;
-background: #eaeaea;
-color: #333;
-opacity:0.8;
-}
-/* NAV BAR*/
-a {
-  color: white;
-}
-
-/* header */
-
-.header {
-  background-color: #333;
-  box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
-  position: fixed;
-  width: 100%;
-  z-index: 3;
-}
-
-.header ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  overflow: hidden;
-  background-color: #333;
-}
-
-.header li a {
-  color: white;
-  display: block;
-  padding: 20px 20px;
-  border-right: 1px solid #f4f4f4;
-  text-decoration: none;
-}
-
-.header li a:hover,
-.header .menu-btn:hover {
-  background-color: #f4f4f4;
-}
-
-.header .logo {
-  display: block;
-  float: left;
-  font-size: 2em;
-  padding: 10px 20px;
-  text-decoration: none;
-}
-
-/* menu */
-
-.header .menu {
-  clear: both;
-  max-height: 0;
-  transition: max-height .2s ease-out;
-}
-
-/* menu icon */
-
-.header .menu-icon {
-  cursor: pointer;
-  display: inline-block;
-  float: right;
-  padding: 28px 20px;
-  position: relative;
-  user-select: none;
-}
-
-.header .menu-icon .navicon {
-  background: white;
-  display: block;
-  height: 2px;
-  position: relative;
-  transition: background .2s ease-out;
-  width: 18px;
-}
-
-.header .menu-icon .navicon:before,
-.header .menu-icon .navicon:after {
-  background: white;
-  content: '';
-  display: block;
-  height: 100%;
-  position: absolute;
-  transition: all .2s ease-out;
-  width: 100%;
-}
-
-.header .menu-icon .navicon:before {
-  top: 5px;
-}
-
-.header .menu-icon .navicon:after {
-  top: -5px;
-}
-
-/* menu btn */
-
-.header .menu-btn {
-  display: none;
-}
-
-.header .menu-btn:checked ~ .menu {
-  max-height: 240px;
-}
-
-.header .menu-btn:checked ~ .menu-icon .navicon {
-  background: transparent;
-}
-
-.header .menu-btn:checked ~ .menu-icon .navicon:before {
-  transform: rotate(-45deg);
-}
-
-.header .menu-btn:checked ~ .menu-icon .navicon:after {
-  transform: rotate(45deg);
-}
-
-.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
-.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
-  top: 0;
-}
 
 
 /* GRID */
 .grid0{
 	color: #fff;
-	text-align: center;
 	background: url('../images/Showcase.png') no-repeat 0;
 	background-size: cover;
 	background-width: 100%;
+  height: 400px;
 	background-position: center;
 
+
 }
- /*.grid0:before{
-	background: url('GG.jpg') no-repeat 0;
-	background-size: cover;
-	background-position: center center;
-	background-width: 100%;
-	background-opacity:0.5;
-
-
-	DOESNT WORK FOR SOME REASON
-}*/
  .grid0 h1{
-padding-top: 100px;
-padding-bottom: 0px;
+   position: absolute;
+     top: 200px;
+     left: 0;
+     width: 100%;
  }
+ .grid0 h1 span {
+   color: white;
+   font: bold 60px Helvetica, Sans-Serif;
+   letter-spacing: +1px;
+   background: rgb(0, 0, 0);
+   background: rgba(0, 0, 0, 0.7);
+   padding: 10px;
+}
 
-  .grid1 {
+/*  .grid1 {
   	color: #fff;
   	padding-bottom:2em;
   	padding: 0 1.5em;
@@ -259,10 +166,12 @@ transition: 0.5s;
   .grid5:hover{
  transform: scale(1.1);
   }
+*/
 #bs .box{
 	padding: 2em;
 	color: #fff;
 background: #2690d4;
+text-align: center;
 }
 /* Footer */
 #ooter {
@@ -275,8 +184,7 @@ background: #2690d4;
 		.wrapper {
 			display: grid;
 			grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
-			/*grid-gap:1em;*/
-
+     overflow: hidden;
 		}
 
 		.grid0{
@@ -306,25 +214,17 @@ background: #2690d4;
       }
 
 
-		#bs{
-			text-align: center;
-		}
 	}
-
-
-  @media (min-width: 750px) {
-    .header li {
-      float: left;
+  @media (max-width:700px){
+.grid0 h1{
+position: relative;
+}
+    .grid0 h1 span{
+      color: white;
+      font: bold 30px Helvetica, Sans-Serif;
+      letter-spacing: +1px;
+      background: rgb(0, 0, 0);
+      background: rgba(0, 0, 0, 0.7);
+      padding: 10px;
     }
-    .header li a {
-      padding: 20px 30px;
-    }
-    .header .menu {
-      clear: none;
-      float: right;
-      max-height: none;
-    }
-    .header .menu-icon {
-      display: none;
-    }
- }
+  }
