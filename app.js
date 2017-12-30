@@ -60,7 +60,6 @@ io.sockets.on('connection' , function(socket) {
     socket.join(room);
     users=[];
     socket.username =   socket.handshake.session.user.hi;
-  /*  room.usernames.push(socket.username);*/
   var clients = io.sockets.adapter.rooms[room].sockets;
   var numClients = (typeof clients !== 'undefined') ? Object.keys(clients).length : 0;
 
@@ -72,25 +71,10 @@ console.log(clientSocket);
      updateUsernames();
 
 
-  /*socket.on('login' , function(user) {
-            socket.handshake.session.user = user;
-            socket.handshake.session.save();*
-
-
-
- var clients = io.sockets.adapter.rooms[room].sockets;
-}
-io.sockets.in(room).emit('get users', clients);*/
-
   // Disconnect
 socket.on('disconnect', function(data){
  socket.leave(room);
-/*room.usernames.splice(room.usernames.indexOf(socket.username) , 1);*/
 updateUsernames();
-      /*  if (socket.handshake.session.user) {
-            delete socket.handshake.session.user;
-            socket.handshake.session.save();
-        }*/
 });
       function updateUsernames(){
           io.sockets.in(room).emit('get users', users );
@@ -115,28 +99,21 @@ app.get('/home/:page',function(req,res){
 
 
 
-app.get('/game/:name',function(req, res, next) {
-  var name = req.params.name;
-  req.getConnection(function(err,connection){
-    var query = connection.query('SELECT * FROM users WHERE '+[name]+'=1',function(err,rows){
-            if(err)
-              console.log("Error Selecting : %s ",err );
-for(i=0;i<5;i++){
-  if(name!=games[i]){
-    if(i=4)
-    res.redirect('/');
-  }else{
-if(req.session.user){
+  app.get('/game/:name',function(req, res, next) {
+    var name = req.params.name;
+  if( games.includes(name))
+  {
+  if(req.session.user){
+    req.getConnection(function(err,connection){
+      var query = connection.query('SELECT * FROM users WHERE '+[name]+'=1',function(err,rows){
+              if(err)
+                console.log("Error Selecting : %s ",err );
   res.render('game', { Game:  name , data:rows ,username:req.session.user,lel:req.session.user.hi});
-  break;
-}else{
-res.redirect('/home/login');
-break;
-}
-}
-}
+  });
 });
-});
+}else{res.redirect('/home/login');}
+}  else{res.redirect('/');
+}
 });
 
 
