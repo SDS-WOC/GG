@@ -13,6 +13,24 @@ body{
  	margin:0;
  	padding: 1em 0;
  }
+ .btn{
+  	display: inline-block;
+   	background: #333;
+   	color: #fff;
+   	text-decoration: none;
+   	padding: 1em 2em;
+   	border: 1px solid #666;
+      margin: .5em 0;
+      opacity: 0.5;
+   }
+
+  .btn:hover {
+  color: black;
+  background: #eaeaea;
+  color: #333;
+  opacity:0.8;
+  }
+
 
  p{
  	margin: 0;

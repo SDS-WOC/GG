@@ -9,7 +9,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
   <style>
-
+.nani{
+  display: none;
+}
   </style>
     <title>Gaming Gateway</title>
 </head>
@@ -17,14 +19,28 @@
 <body>
   <% include template/header.ejs %>
 <main id="main">
+
 <div class="wrapper">
 <div class="showcase" id="<%= Game %>">
+  <form class="add-form" action='/addcommunity' method='post'>
+<div class='nani'>
+<input name="lol" id='lol' value="<%= Game %>" >
+</div>
+  <button class='btn' id='join' type='submit' > Join community </button>
+</form>
+<form class="leave-form" action='/leavecommunity' method='post'>
+<div class='nani'>
+<input name="lul" id='lul'  value="<%= Game %>" >
+</div>
+<button class='btn' id='leave' type='submit' > Leave community </button>
+</form>
 </div>
     <!-- chatbox -->
     <div class="list1">
 <div class="well">
       <table class="table">
 <tr>
+  Users
 </tr>
 <% if(data.length){
 for(var i = 0;i < data.length;i++) { %>
@@ -43,7 +59,6 @@ for(var i = 0;i < data.length;i++) { %>
 
 <!-- list 1-->
 <div class="list2">
-          <h3>Online Users</h3>
           <ul class="list-group" id="users"></ul>
 </div>
 <!-- list 2 -->
@@ -79,7 +94,7 @@ for(var i = 0;i < data.length;i++) { %>
       $message.val('');
     });
 socket.on('get users', function(data){
-var html='';
+var html='<li class="list-group-item">Online users</li>';
 for(i=0;i<data.length;i++){
 html += '<li class="list-group-item">'+data[i]+'</li>' ;
 }
